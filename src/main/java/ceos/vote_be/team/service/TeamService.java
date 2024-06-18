@@ -2,7 +2,10 @@ package ceos.vote_be.team.service;
 
 import ceos.vote_be.global.code.ErrorCode;
 import ceos.vote_be.global.exception.BusinessExceptionHandler;
+import ceos.vote_be.leader.domain.Leader;
+import ceos.vote_be.leader.repository.LeaderRepository;
 import ceos.vote_be.member.domain.Member;
+import ceos.vote_be.member.domain.Part;
 import ceos.vote_be.member.repository.MemberRepository;
 import ceos.vote_be.team.domain.Team;
 import ceos.vote_be.team.repository.TeamRepository;
@@ -18,9 +21,14 @@ import java.util.List;
 public class TeamService {
     private final TeamRepository teamRepository;
     private final MemberRepository memberRepository;
+    private final LeaderRepository leaderRepository;
 
     public List<Team> retrieveTeamByCount() {
         return teamRepository.findAllByOrderByVoteCountDesc();
+    }
+
+    public List<Leader> retrieveLeaderByCount() {
+        return leaderRepository.findAllByOrderByVoteCountDesc();
     }
 
     @Transactional
@@ -37,7 +45,15 @@ public class TeamService {
     }
 
     @Transactional
-    public void leaderVote(Long teamId) {
-        //
+    public int leaderVote(Long memberId, Long leaderId) { // 파트장 투표 로직
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
+        Leader leader = leaderRepository.findById(leaderId).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
+        if (member.getPart().equals(leader.getPart())) { // 투표하는 사람과 파트장, 둘의 파트가 같아야 투표 가능
+            int vote = leader.vote();
+            leaderRepository.save(leader);
+            return vote;
+        } else {
+            throw new BusinessExceptionHandler("파트가 달라서 투표 불가능",ErrorCode.BAD_REQUEST_ERROR);
+        }
     }
 }
