@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user")
+@RequestMapping("api/user")
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/join")
+    @PostMapping("/signup")
     public void joinMember(@RequestBody MemberJoinRequestDto memberJoinRequestDto) {
         memberService.joinMember(memberJoinRequestDto);
     }

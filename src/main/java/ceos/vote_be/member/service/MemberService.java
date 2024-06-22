@@ -40,6 +40,7 @@ public class MemberService {
                 .part(memberRequestDto.getPart())
                 .password(bCryptPasswordEncoder.encode(memberRequestDto.getPassword()))
                 .team(team)
+                .isVoted(0)
                 .role(UserRoleEnum.USER)
                 .build();
         memberRepository.save(member);
@@ -52,6 +53,7 @@ public class MemberService {
             if (findMember.get().getPassword().equals(memberLoginRequestDto.getPassword())) { // 비밀번호가 일치한다면
                 // Login
             } else {
+                System.out.println(findMember.get().getPassword());
                 throw new BusinessExceptionHandler(ErrorCode.NOT_VALID_ERROR);
             }
         }
@@ -72,4 +74,14 @@ public class MemberService {
         }
         return true;
     }
+
+    @Transactional
+    public void vote(Member member) {
+        if (member.getIsVoted() != 0) {
+            throw new BusinessExceptionHandler("이미 투표하였습니다.", ErrorCode.BAD_REQUEST_ERROR);
+        }
+        member.vote();
+        memberRepository.save(member);
+    }
+
 }

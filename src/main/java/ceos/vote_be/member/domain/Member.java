@@ -24,9 +24,16 @@ public class Member {
     private String email;
     private String username;
 
+    private Integer isVoted;
+
     @Enumerated(EnumType.STRING)
     private Part part;
 
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
+
+    public void vote() {
+        this.isVoted = 1;
+        System.out.println("voted");
+    }
 }
