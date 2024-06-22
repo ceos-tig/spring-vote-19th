@@ -3,14 +3,14 @@ jwt:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/ceos_vote
+    url: jdbc:mysql://localhost:3306/ceos_vote?createDatabaseIfNotExist=true
     username: root
-    password:
+    password: 
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL8Dialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
