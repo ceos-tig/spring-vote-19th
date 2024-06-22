@@ -4,7 +4,10 @@ import ceos.vote_be.team.domain.Team;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface TeamRepository extends JpaRepository<Team, Long> {
     public List<Team> findAllByOrderByVoteCountDesc();
+
+    Optional<Team> findByName(String teamName);
 }
