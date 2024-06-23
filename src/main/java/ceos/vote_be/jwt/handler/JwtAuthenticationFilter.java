@@ -6,6 +6,7 @@ import ceos.vote_be.jwt.TokenProvider;
 import ceos.vote_be.member.dto.MemberLoginRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +16,27 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final TokenProvider tokenProvider;
+    private final List<String> bypassUris = Arrays.asList("/vote/team-result", "/vote/be-result", "/vote/fe-result");
+
 
     public JwtAuthenticationFilter(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
         setFilterProcessesUrl("/api/user/login");  // 로그인 URL 설정
+    }
+
+    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        String requestUri = request.getRequestURI();
+        if (bypassUris.contains(requestUri)) {
+            chain.doFilter(request, response);
+            return;
+        }
+        super.doFilter(request, response, chain);
     }
 
     @Override
@@ -43,7 +57,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     // 로그인 성공 시
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws ServletException, IOException {
         log.info("로그인 성공 및 JWT 생성");
         String username = ((MemberDetailsImpl) authResult.getPrincipal()).getUsername();    // username
         String loginId = ((MemberDetailsImpl) authResult.getPrincipal()).getMember().getLoginId();
@@ -52,6 +66,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = tokenProvider.createAccessToken(loginId, authResult);
 
         response.addHeader("Authorization", token);
+        chain.doFilter(request, response); // Ensure the chain continues after successful authentication
     }
 
     // 로그인 실패 시
