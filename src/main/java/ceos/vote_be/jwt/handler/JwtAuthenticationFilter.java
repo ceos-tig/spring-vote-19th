@@ -22,21 +22,10 @@ import java.util.List;
 @Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final TokenProvider tokenProvider;
-    private final List<String> bypassUris = Arrays.asList("/vote/team-result", "/vote/be-result", "/vote/fe-result");
-
 
     public JwtAuthenticationFilter(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
         setFilterProcessesUrl("/api/user/login");  // 로그인 URL 설정
-    }
-
-    public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String requestUri = request.getRequestURI();
-        if (bypassUris.contains(requestUri)) {
-            chain.doFilter(request, response);
-            return;
-        }
-        super.doFilter(request, response, chain);
     }
 
     @Override
@@ -66,7 +55,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = tokenProvider.createAccessToken(loginId, authResult);
 
         response.addHeader("Authorization", token);
-        chain.doFilter(request, response); // Ensure the chain continues after successful authentication
     }
 
     // 로그인 실패 시
