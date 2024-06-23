@@ -124,7 +124,7 @@ public class TeamService {
     }
 
     public List<Map<String, Object>> getFeResults() {
-        return leaderRepository.findByPartOrderByVoteCountDescNameAsc("FE")
+        return leaderRepository.findByPartOrderByVoteCountDescNameAsc(Part.FRONTEND)
                 .stream()
                 .map(leader -> {
                     Map<String, Object> result = new HashMap<>();
@@ -136,7 +136,7 @@ public class TeamService {
     }
 
     public List<Map<String, Object>> getBeResults() {
-        return leaderRepository.findByPartOrderByVoteCountDescNameAsc("BACKEND")
+        return leaderRepository.findByPartOrderByVoteCountDescNameAsc(Part.BACKEND)
                 .stream()
                 .map(leader -> {
                     Map<String, Object> result = new HashMap<>();
