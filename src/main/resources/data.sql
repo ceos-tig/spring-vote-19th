@@ -23,16 +23,29 @@ ALTER TABLE member ADD CONSTRAINT FK_member_team_id FOREIGN KEY (team_id) REFERE
 -- Insert initial values
 INSERT INTO team (vote_count, name) VALUES (0, 'AZITO');
 INSERT INTO team (vote_count, name) VALUES (0, 'BEATBUDDY');
-INSERT INTO team (vote_count, name) VALUES (0, 'TIG');
 INSERT INTO team (vote_count, name) VALUES (0, 'BULDOG');
 INSERT INTO team (vote_count, name) VALUES (0, 'COUPLELOG');
+INSERT INTO team (vote_count, name) VALUES (0, 'TIG');
 
-INSERT INTO leader (vote_count, name, part) VALUES (0, '최현수', 'BACKEND');
-INSERT INTO leader (vote_count, name, part) VALUES (0, '이영교', 'BACKEND');
-INSERT INTO leader (vote_count, name, part) VALUES (0, '이유정', 'BACKEND');
-INSERT INTO leader (vote_count, name, part) VALUES (0, '이윤서', 'BACKEND');
-INSERT INTO leader (vote_count, name, part) VALUES (0, '배성준', 'FRONTEND');
-INSERT INTO leader (vote_count, name, part) VALUES (0, '김지원', 'FRONTEND');
-INSERT INTO leader (vote_count, name, part) VALUES (0, '노이진', 'FRONTEND');
-INSERT INTO leader (vote_count, name, part) VALUES (0, '변지혜', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '권찬', 'BACKEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '김성현', 'BACKEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '박수빈', 'BACKEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '박시영', 'BACKEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '전민', 'BACKEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '이도현', 'BACKEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '이진우', 'BACKEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '임형준', 'BACKEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '장영환', 'BACKEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '정기민', 'BACKEND');
+
+INSERT INTO leader (vote_count, name, part) VALUES (0, '김다희', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '김동혁', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '김민영', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '김수현', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '김승완', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '송은수', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '안혜연', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '이지인', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '이나현', 'FRONTEND');
+INSERT INTO leader (vote_count, name, part) VALUES (0, '조유담', 'FRONTEND');
 
