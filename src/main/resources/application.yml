@@ -1,5 +1,5 @@
 jwt:
-  secret: ${JWT_SECRET_KEY}
+  secret: hellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohellohello
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
