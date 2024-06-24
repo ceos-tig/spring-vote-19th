@@ -40,7 +40,9 @@ public class MemberService {
                 .part(memberRequestDto.getPart())
                 .password(bCryptPasswordEncoder.encode(memberRequestDto.getPassword()))
                 .team(team)
-                .isVoted(0)
+                .isFEVoted(0)
+                .isBEVoted(0)
+                .isTeamVoted(0)
                 .role(UserRoleEnum.USER)
                 .build();
         memberRepository.save(member);
@@ -76,11 +78,29 @@ public class MemberService {
     }
 
     @Transactional
-    public void vote(Member member) {
-        if (member.getIsVoted() != 0) {
+    public void voteFE(Member member) {
+        if (member.getIsFEVoted() != 0) {
             throw new BusinessExceptionHandler("이미 투표하였습니다.", ErrorCode.BAD_REQUEST_ERROR);
         }
-        member.vote();
+        member.voteFE();
+        memberRepository.save(member);
+    }
+
+    @Transactional
+    public void voteBE(Member member) {
+        if (member.getIsBEVoted() != 0) {
+            throw new BusinessExceptionHandler("이미 투표하였습니다.", ErrorCode.BAD_REQUEST_ERROR);
+        }
+        member.voteBE();
+        memberRepository.save(member);
+    }
+
+    @Transactional
+    public void voteTeam(Member member) {
+        if (member.getIsTeamVoted() != 0) {
+            throw new BusinessExceptionHandler("이미 투표하였습니다.", ErrorCode.BAD_REQUEST_ERROR);
+        }
+        member.voteTeam();
         memberRepository.save(member);
     }
 

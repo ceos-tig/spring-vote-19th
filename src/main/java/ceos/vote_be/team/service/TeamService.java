@@ -67,7 +67,7 @@ public class TeamService {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
         Map<String, Object> response = new HashMap<>();
         response.put("status", "FE");
-        response.put("isVoted", member.getIsVoted());
+        response.put("isVoted", member.getIsFEVoted());
         return response;
     }
 
@@ -75,7 +75,7 @@ public class TeamService {
     public void voteFe(String username, String leaderName) {
         Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
-        memberService.vote(member);
+        memberService.voteFE(member);
 
         Leader leader = leaderRepository.findByName(leaderName)
                 .orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
@@ -87,14 +87,14 @@ public class TeamService {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
         Map<String, Object> response = new HashMap<>();
         response.put("status", "BE");
-        response.put("isVoted", member.getIsVoted());
+        response.put("isVoted", member.getIsBEVoted());
         return response;
     }
 
     @Transactional
     public void voteBe(String username, String leaderName) {
         Member member = memberRepository.findByUsername(username).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
-        memberService.vote(member);
+        memberService.voteBE(member);
 
         Leader leader = leaderRepository.findByName(leaderName)
                 .orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
@@ -106,13 +106,15 @@ public class TeamService {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
         Map<String, Object> response = new HashMap<>();
         response.put("status", member.getTeam().getName());
-        response.put("isVoted", member.getIsVoted());
+        response.put("isVoted", member.getIsTeamVoted());
         return response;
     }
 
     @Transactional
     public int voteTeam(String username, String teamName) { // 데모데이 투표 로직
         Member member = memberRepository.findByUsername(username).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
+        memberService.voteTeam(member);
+
         Team team = teamRepository.findByName(teamName).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
         if(member.getTeam().equals(team)){ // 내 팀에 투표는 불가능!
             throw new BusinessExceptionHandler("본인의 팀에는 투표 불가능",ErrorCode.BAD_REQUEST_ERROR);

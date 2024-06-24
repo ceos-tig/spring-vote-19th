@@ -24,7 +24,9 @@ public class Member {
     private String email;
     private String username;
 
-    private Integer isVoted;
+    private Integer isFEVoted;
+    private Integer isBEVoted;
+    private Integer isTeamVoted;
 
     @Enumerated(EnumType.STRING)
     private Part part;
@@ -32,8 +34,18 @@ public class Member {
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
 
-    public void vote() {
-        this.isVoted = 1;
-        System.out.println("voted");
+    public void voteFE() {
+        this.isFEVoted = 1;
+//        System.out.println("voted");
+    }
+
+    public void voteBE() {
+        this.isBEVoted = 1;
+//        System.out.println("voted");
+    }
+
+    public void voteTeam() {
+        this.isTeamVoted = 1;
+//        System.out.println("voted");
     }
 }
