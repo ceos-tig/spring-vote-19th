@@ -65,10 +65,11 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-        configuration.addAllowedOrigin("http://43.202.139.24:3000");
-        configuration.addAllowedOrigin("http://localhost:3000");
-        configuration.addAllowedOrigin("http://43.202.139.24:8080");
+//        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+//        configuration.addAllowedOrigin("http://43.202.139.24:3000");
+//        configuration.addAllowedOrigin("http://localhost:3000");
+//        configuration.addAllowedOrigin("http://43.202.139.24:8080");
+        configuration.addAllowedOrigin("*");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);
@@ -101,7 +102,9 @@ public class WebSecurityConfig {
                                 ,"/v3/api-docs/**"
                                 ,"/**" // 개발 편의를 위해
                         ).permitAll()
+
                                 .anyRequest().hasRole("USER")
+
                 );
         http.addFilterBefore(jwtExceptionHandlerFilter(), JwtAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
