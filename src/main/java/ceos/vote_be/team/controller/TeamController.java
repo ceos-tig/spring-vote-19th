@@ -20,7 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("vote")
 //@CrossOrigin(originPatterns = "http://43.202.139.24/:3000")
-@CrossOrigin(originPatterns = "http://localhost:3000")
+@CrossOrigin(originPatterns = "*")
 public class TeamController {
     private final TeamService teamService;
 

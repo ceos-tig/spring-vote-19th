@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("api/user")
 //@CrossOrigin(originPatterns = "http://43.202.139.24:3000")
-@CrossOrigin(originPatterns = "http://localhost:3000")
+@CrossOrigin(originPatterns = "*")
 public class MemberController {
 
     private final MemberService memberService;
