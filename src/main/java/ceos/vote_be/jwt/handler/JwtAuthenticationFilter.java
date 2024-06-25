@@ -1,8 +1,8 @@
 package ceos.vote_be.jwt.handler;
 
+import ceos.vote_be.jwt.TokenProvider;
 import ceos.vote_be.member.domain.UserRoleEnum;
 import ceos.vote_be.member.dto.MemberDetailsImpl;
-import ceos.vote_be.jwt.TokenProvider;
 import ceos.vote_be.member.dto.MemberLoginRequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -16,8 +16,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 @Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {

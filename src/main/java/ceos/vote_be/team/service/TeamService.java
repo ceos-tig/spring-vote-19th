@@ -66,7 +66,7 @@ public class TeamService {
     public Map<String, Object> checkFeVote(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
         Map<String, Object> response = new HashMap<>();
-        response.put("status", "FE");
+        response.put("status", member.getPart());
         response.put("isVoted", member.getIsFEVoted());
         return response;
     }
@@ -86,7 +86,7 @@ public class TeamService {
     public Map<String, Object> checkBeVote(Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new BusinessExceptionHandler(ErrorCode.NOT_FOUND_ERROR));
         Map<String, Object> response = new HashMap<>();
-        response.put("status", "BE");
+        response.put("status", member.getPart());
         response.put("isVoted", member.getIsBEVoted());
         return response;
     }
